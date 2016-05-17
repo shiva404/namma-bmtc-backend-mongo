@@ -3,8 +3,6 @@ package com.intuit.client;
 import com.intuit.provider.JacksonJsonProvider;
 import com.intuit.types.Data;
 import com.intuit.types.Location;
-import com.intuit.types.ReferenceToken;
-import com.sun.javafx.binding.Logging;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.slf4j.Logger;
@@ -22,7 +20,6 @@ import java.util.concurrent.*;
  */
 public class ClientDaoImpl implements ClientDao {
 
-   // public static final String[] routes = { "9aaae976-18ae-426b-95b7-4f46f9ff3734",  "c1fcf2dc-2254-43fa-8f2d-b419094a56a5",  "4beedada-05c2-4373-8170-a231f0ac24f1",  "870fba99-2fed-4570-baa2-94cf2430604b",  "2c3d7428-a2a5-4ada-991a-85303d8de3bf",  "3b8f8532-b2ac-4671-b747-f8ed74f0d317",  "c5de77ff-d0ab-4cd4-904f-1d34e0e46482",  "a4c917a8-b70b-4f36-8561-8c3f7c1d7b3f",  "4ebd45a7-9bcf-4552-8099-33bdd2e6f5ba",  "2f3d7005-d0b1-4faf-a813-79b706136cfe",  "f331f8cf-2d54-4b03-b06f-25ee9b2d8610",  "fa812ac3-c1d0-4c08-8418-5132a1c31889",  "f1ac930e-4239-43ac-8953-81538c03d1a4",  "15e66167-4cb4-4270-8eba-fd4e14df3736",  "387e8e0e-b8e6-4b61-80e7-bee86940d20c",  "edc9e4b3-4943-4314-9035-e8dda328affa",  "2bfeca2e-0e76-4090-bc5e-34777f01f99d",  "cc341892-360d-4d30-9d2f-d1eb99060173",  "2c421630-b4de-4e5c-9f5b-374b559c3fce",  "79fbc9e9-3129-423a-a2e2-5b7702a0ccd6" };
     public static final String[] routes = { "a3b0db52-a10f-48de-b360-d824f1246a91",  "9ec94be4-e542-48c2-bd39-8ea181a3cf42",
            "9b8a65a4-0b00-41d0-b778-17a187cc7e32",  "8ee284f4-71ce-4e2f-a2a5-c23c35dd8a55",  "86adad04-1b73-403e-94c3-bc63ee7fb09e",
            "b88db6e2-a601-48ae-8584-96f30847b9b5",  "0597d270-87e9-4b67-9c5b-66967edbac83",  "1eebc47a-ea5f-4939-a7e5-174cfbea4614",
