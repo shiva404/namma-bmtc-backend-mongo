@@ -22,7 +22,8 @@
     <bean class="com.intuit.mongo.MongoDao" id="mongoDao">
         <constructor-arg index="0" ref="mongoClient"/>
         <constructor-arg index="1" value="${mongodb.database}"/>
-        <constructor-arg index="2" value="${mongodb.database.collection.name}" />
+        <constructor-arg index="2" value="${mongodb.loc.database.collection.name}" />
+        <constructor-arg index="3" value="${mongodb.bus_routes.database.collection.name}" />
     </bean>
 
     <bean class="com.mongodb.MongoClient" id="mongoClient">
@@ -31,6 +32,8 @@
     </bean>
 
     <bean class="com.intuit.resource.LocationResource" id="locationResource" />
+
+    <bean class="com.intuit.resource.BusRoutesResource" id="busRoutesResource" />
 
     <bean class="com.intuit.provider.JacksonJsonProvider" scope="singleton" id="jacksonJsonProvider" />
 </beans>

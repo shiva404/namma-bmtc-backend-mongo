@@ -1,9 +1,9 @@
 package com.intuit.mongo;
 
+import com.intuit.types.BusRoute;
 import com.intuit.types.Location;
 import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
-import com.mongodb.DBCursor;
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
@@ -11,8 +11,6 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.geojson.Point;
 import com.mongodb.client.model.geojson.Position;
 import com.mongodb.client.result.DeleteResult;
-import org.bson.Document;
-
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,19 +20,22 @@ import java.util.UUID;
  *
  */
 public class MongoDao {
-    private MongoCollection<BasicDBObject> collection;
+    private MongoCollection<BasicDBObject> locationsCollection;
+    private MongoCollection<BasicDBObject> busRoutesCollection;
+
 
     MongoDatabase mongoDatabase;
 
-    public MongoDao(MongoClient mongoClient, String database, String collectionName){
+    public MongoDao(MongoClient mongoClient, String database, String locationDB, String busRoutesDB){
         this.mongoDatabase = mongoClient.getDatabase(database);
-        collection = mongoDatabase.getCollection(collectionName, BasicDBObject.class);
+        locationsCollection = mongoDatabase.getCollection(locationDB, BasicDBObject.class);
+        busRoutesCollection = mongoDatabase.getCollection(busRoutesDB, BasicDBObject.class);
     }
 
     public String insertLocation(Location location) {
         String refToken = UUID.randomUUID().toString();
         BasicDBObject basicDBObject = MongoMapper.getLocationDocument(refToken, location);
-        collection.insertOne(basicDBObject);
+        locationsCollection.insertOne(basicDBObject);
         return refToken;
     }
 
@@ -46,7 +47,7 @@ public class MongoDao {
 
         BasicDBObject nearFilter = new BasicDBObject("$near", geoFilter);
 
-        FindIterable<BasicDBObject> basicDBObjects = collection.find(new BasicDBObject("loc", nearFilter));
+        FindIterable<BasicDBObject> basicDBObjects = locationsCollection.find(new BasicDBObject("loc", nearFilter));
         for(BasicDBObject basicDBObject : basicDBObjects){
             BasicDBList basicDBList = (BasicDBList) basicDBObject.get("loc");
             Double tempLat = (Double) basicDBList.get(0);
@@ -62,13 +63,18 @@ public class MongoDao {
     }
 
     public String updateLocation(Location location) {
-        collection.findOneAndReplace(new BasicDBObject("refToken", location.getRefToken()), MongoMapper.getLocationDocument(location.getRefToken(), location));
+        locationsCollection.findOneAndReplace(new BasicDBObject("refToken", location.getRefToken()), MongoMapper.getLocationDocument(location.getRefToken(), location));
         return location.getRefToken();
     }
 
     public void deleteLocation(String refToken) {
-        collection.findOneAndDelete(new BasicDBObject("refToken", new BasicDBObject("$eq", refToken)));
-        DeleteResult refToken1 = collection.deleteOne(new BasicDBObject("refToken", refToken));
+        locationsCollection.findOneAndDelete(new BasicDBObject("refToken", new BasicDBObject("$eq", refToken)));
+        DeleteResult refToken1 = locationsCollection.deleteOne(new BasicDBObject("refToken", refToken));
         System.out.println(refToken1.getDeletedCount());
+    }
+
+    public void persistBusRouts(BusRoute busRoutes){
+        BasicDBObject basicDBObject = MongoMapper.getBusRouteObject(busRoutes);
+        busRoutesCollection.insertOne(basicDBObject);
     }
 }

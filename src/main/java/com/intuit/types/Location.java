@@ -20,7 +20,6 @@ public class Location {
     }
 
     public Location(String refToken, Double latitude, Double longitude,  String routeNumber, String crowdLevel) {
-
         this.crowdLevel = crowdLevel;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -29,6 +28,7 @@ public class Location {
     }
 
     public Location() {
+
     }
 
     public Location(Double latitude, Double longitude) {
