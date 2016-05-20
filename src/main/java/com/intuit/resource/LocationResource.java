@@ -65,9 +65,9 @@ public class LocationResource {
     }
 
     @DELETE
+    @Path("/{refToken}")
     public void deleteLocation(@Suspended final AsyncResponse asyncResponse,
-                               @QueryParam("lat") String refToken){
-
+                               @PathParam("refToken") String refToken){
         new Thread(()->{
             mongoDao.deleteLocation(refToken);
             asyncResponse.resume(Response.ok().build());

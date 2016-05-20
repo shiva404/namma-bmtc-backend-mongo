@@ -77,4 +77,8 @@ public class MongoDao {
         BasicDBObject basicDBObject = MongoMapper.getBusRouteObject(busRoutes);
         busRoutesCollection.insertOne(basicDBObject);
     }
+
+    public BusRoute getBusRoute(String routeNumber) {
+        return null;
+    }
 }
