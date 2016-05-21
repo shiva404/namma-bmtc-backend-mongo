@@ -22,14 +22,16 @@ import java.util.UUID;
 public class MongoDao {
     private MongoCollection<BasicDBObject> locationsCollection;
     private MongoCollection<BasicDBObject> busRoutesCollection;
+    private MongoCollection<BasicDBObject> thanksCollection;
 
 
     MongoDatabase mongoDatabase;
 
-    public MongoDao(MongoClient mongoClient, String database, String locationDB, String busRoutesDB){
+    public MongoDao(MongoClient mongoClient, String database, String locationDB, String busRoutesDB,String thanksDB){
         this.mongoDatabase = mongoClient.getDatabase(database);
         locationsCollection = mongoDatabase.getCollection(locationDB, BasicDBObject.class);
         busRoutesCollection = mongoDatabase.getCollection(busRoutesDB, BasicDBObject.class);
+        thanksCollection = mongoDatabase.getCollection(thanksDB,BasicDBObject.class);
     }
 
     public String insertLocation(Location location) {
@@ -95,5 +97,24 @@ public class MongoDao {
 
         return busRoute;
 
+    }
+
+    public void sayThanks(String refToken)
+    {
+
+        FindIterable<BasicDBObject> basicDBObjects = thanksCollection.find(new BasicDBObject("refToken", refToken));
+        BasicDBObject basicDBObject = basicDBObjects.first();
+
+        if(null!= basicDBObject)
+        {
+            int count = basicDBObject.getInt("count");
+            count++;
+            thanksCollection.findOneAndReplace(new BasicDBObject("refToken", refToken),MongoMapper.getThanksCollectionObject(refToken,count));
+        }
+        else
+        {
+            BasicDBObject basicDBObjectInsert = MongoMapper.getThanksCollectionObject(refToken,1);
+            thanksCollection.insertOne(basicDBObjectInsert);
+        }
     }
 }

@@ -25,4 +25,19 @@ public class MongoMapper {
         basicDBObject.put("details", busRoute.getDetails());
         return basicDBObject;
     }
+
+    public static BasicDBObject getThanksCollectionObject(String refToken, int count)
+    {
+        final BasicDBObject basicDBObject =  new BasicDBObject();
+        basicDBObject.put("refToken",refToken);
+        basicDBObject.put("count",count);
+        return basicDBObject;
+    }
+
+    public static BasicDBObject getThanksCountObject(int count)
+    {
+        final BasicDBObject basicDBObject = new BasicDBObject();
+        basicDBObject.put("count",count);
+        return basicDBObject;
+    }
 }
