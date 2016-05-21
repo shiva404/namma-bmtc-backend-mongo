@@ -20,52 +20,62 @@ import java.util.concurrent.*;
  */
 public class ClientDaoImpl implements ClientDao {
 
-    public static final String[] routes = { "a3b0db52-a10f-48de-b360-d824f1246a91",  "9ec94be4-e542-48c2-bd39-8ea181a3cf42",
-           "9b8a65a4-0b00-41d0-b778-17a187cc7e32",  "8ee284f4-71ce-4e2f-a2a5-c23c35dd8a55",  "86adad04-1b73-403e-94c3-bc63ee7fb09e",
-           "b88db6e2-a601-48ae-8584-96f30847b9b5",  "0597d270-87e9-4b67-9c5b-66967edbac83",  "1eebc47a-ea5f-4939-a7e5-174cfbea4614",
-           "71a63807-3c89-400e-b764-1586796932cc",  "bc4087b1-4e1b-4b72-a0d7-b568a9cb5336",  "5a726197-b4b2-4031-8614-0cde3405e10c",
-           "9517924b-be3e-4ec0-8fb3-5fba40206cd6",  "2e4711be-5bee-40af-8c27-4ca251ca1264",  "698fdac7-409c-4bcf-9bf4-ad7197c6d9c9",
-           "0b2febf2-9706-41af-a578-a5af5de91ef3",  "80449238-b215-430a-982b-cb9b4bf0fe68",  "f27c5c2d-538c-4c00-a341-bef1b99f45a2",
-           "155ef3e7-0cbe-46cc-bed3-05f3038a124d",  "5830aaa0-6f5d-4633-9955-b1fcc6f9a0d9",  "16ef92d5-d030-4130-8285-b52f83ceab5a",
-           "4a3d4119-924a-4e52-ab3f-9509b24da627",  "bee06e95-a79f-4a05-960c-99683bb65fb4",  "f4e5ec17-d58e-4fac-9e1f-44ce4f07f366",
-           "bd3d0b4d-dd63-40a2-ac0a-489580e85547",  "5ee67fde-1dee-4aad-93c0-fe61bb1a98c9",  "9585b474-b430-402e-b7af-5c3559d09196",
-           "b018c100-48b8-4239-bcf1-a19277b659b4",  "e329e463-313a-4746-93ef-10aabcfffae1",  "9eb22784-e5a7-4bb5-82fa-ae103b26d19f",
-           "268e2c71-d9aa-4596-9837-f90951eb0758",  "023bc36b-bb91-4121-aa27-de69cf26a710",  "a7388548-82ce-46a0-a676-15df216db2a5",
-           "ad2c3073-679c-4206-87a6-b263f248805d",  "bd6cbe22-e852-4198-b3e5-3b5275424cd0",  "be5ae1f9-8239-4663-9b61-7009116f9737",
-           "220dce80-7725-470e-8ea6-a3c235252b3e" };
+    public static final String[] routes = {
+            "61a37be3-8a9a-4586-b563-0fdca37c285b",
+            "d6bafec3-6056-4232-b7bc-1a6862654d33",
+            "07592444-38ea-4d81-adeb-f2d6ff21837d",
+            "66e1d55d-56b8-4a87-b5a2-fce15736c7d3",
+            "6e402dbf-d37b-4ff8-85b4-fbbd2f29bfd7",
+            "8cdd7cff-ccf3-469a-bb8b-481fd50d7609",
+            "30e64caf-b861-486b-a3f5-204cb814d405",
+            "5cd2945a-4901-485e-8c63-9e94884ff6bb",
+            "5b120de2-5c70-4a2a-8320-0dea7179de58",
+            "143d43ab-1470-45b7-a5f7-cfbf6f4d7c99",
+            "edcd1cfb-b6be-4e2b-a8f2-337645e38652",
+            "9aa8600e-d36b-4514-9991-ad303a94a5fd",
+            "25094b77-05f7-47a8-a8f9-b0e7d70dc95a",
+            "b6e61b85-db22-4801-8e6e-bb79bd90625b",
+            "f30d07bc-5342-497f-91c6-e1bc8a35acec",
+    };
 
     public static final String[] routes_no = { "501A",  "410",  "335E",  "43A",  "43C",  "36A",  "34B",  "610",  "56",  "34",  "501",
             "95",  "60A",  "216A",  "23D",  "34F",  "99",  "101",  "201B",  "201R", "501A",  "410",  "335E",  "43A",  "43C",  "36A",  "34B",
             "610",  "56",  "34",  "501","501A",  "410",  "335E",  "43A",  "43C",  "36A",  "34B",  "610",  "56",  "34",  "501", };
     public static final double[][] values = {
-            {12.956496, 77.701229},
-            {12.954101, 77.700231},
-            {12.950084, 77.699696},
-            {12.942244, 77.697119},
-            {12.939568, 77.695603},
-            {12.935384, 77.691244},
-            {12.931803, 77.687311},
-            {12.929780, 77.684879},
-            {12.927756, 77.680706},
-            {12.925611, 77.676072},
-            {12.924650, 77.674164},
-            {12.921666, 77.667895},
-            {12.920501, 77.665085},
-            {12.921125, 77.662660},
-            {12.921585, 77.661094},
-            {12.922505, 77.658025},
-            {12.924199, 77.650730},
-            {12.923049, 77.646481},
-            {12.919598, 77.643112},
-            {12.917151, 77.640859},
-            {12.915875, 77.637876},
-            {12.915854, 77.637919},
-            {12.917507, 77.638134},
-            {12.912403, 77.638048},
-            {12.912069, 77.644378},
-            {12.911933, 77.648820},
-            {12.908712, 77.649300},
-            {12.908158, 77.647594}};
+            {12.902193, 77.601108},
+            {12.899434, 77.600734},
+            {12.897468, 77.600090},
+            {12.895836, 77.599575},
+            {12.894037, 77.599360},
+            {12.892490, 77.598845},
+            {12.890774, 77.598287},
+            {12.889478, 77.597601},
+            {12.887930, 77.597172},
+            {12.886089, 77.596700},
+            {12.884439, 77.596481},
+            {12.884303, 77.597007},
+            {12.884167, 77.597468},
+            {12.884177, 77.598004},
+            {12.884104, 77.598605},
+            {12.884064, 77.599509},
+            {12.884606, 77.602179},
+            {12.884522, 77.603553},
+            {12.883853, 77.605184},
+            {12.883560, 77.606771},
+            {12.883350, 77.608617},
+            {12.882932, 77.610033},
+            {12.879749, 77.609995},
+            {12.877828, 77.610284},
+            {12.876416, 77.611733},
+            {12.876221, 77.614120},
+            {12.876242, 77.615278},
+            {12.876190, 77.615826},
+            {12.876195, 77.616105},
+            {12.876237, 77.617650},
+            {12.877576, 77.61906},
+            {12.877994, 77.621083},
+            {12.877325, 77.622671},
+            {12.877241, 77.624645}};
 
     public static String[] crowd = {"STAND", "SEAT", "CROWDED"};
 
@@ -102,8 +112,9 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     public void updatePosition(Location location) throws Exception {
-        Future<Response> post = client.target("http://lb-1816851115.ap-southeast-1.elb.amazonaws.com/test/v1/location")
+        Future<Response> post = client.target("http://localhost:8389/test/v1/location")
                 .request().async().post(Entity.json(location));
+        System.out.println(post.get().getStatus());
     }
 
     public static void main(String[] args) {
@@ -124,8 +135,8 @@ public class ClientDaoImpl implements ClientDao {
 
         int i = 0;
         while (true) {
-            int route_val = threadLocalRandom.nextInt(0, 31);
-            int currValue = i %20;
+            int route_val = threadLocalRandom.nextInt(0, 15);
+            int currValue = i %15;
             System.out.println("Current value:" + currValue);
             double latitude = values[currValue][0];
             double longitude = values[currValue][1];
