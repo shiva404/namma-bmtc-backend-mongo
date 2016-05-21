@@ -79,6 +79,21 @@ public class MongoDao {
     }
 
     public BusRoute getBusRoute(String routeNumber) {
-        return null;
+
+        BusRoute busRoute = new BusRoute();
+        FindIterable<BasicDBObject> basicDBObjects = busRoutesCollection.find(new BasicDBObject("routeNumber", routeNumber));
+        BasicDBObject basicDBObject = basicDBObjects.first();
+
+        if(null != basicDBObject)
+        {
+            busRoute.setBusRoute(routeNumber);
+            busRoute.setFrom(basicDBObject.get("from").toString());
+            busRoute.setTo(basicDBObject.get("to").toString());
+            busRoute.setDetails(basicDBObject.get("details").toString());
+
+        }
+
+        return busRoute;
+
     }
 }
