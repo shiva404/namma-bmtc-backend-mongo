@@ -11,6 +11,16 @@ public class LocationPage {
     private int offset;
     private int size;
 
+    public int getThanksCount() {
+        return thanksCount;
+    }
+
+    public void setThanksCount(int thanksCount) {
+        this.thanksCount = thanksCount;
+    }
+
+    private int thanksCount;
+
     public List<Location> getLocations() {
         if(locations == null)
             locations = new LinkedList<>();

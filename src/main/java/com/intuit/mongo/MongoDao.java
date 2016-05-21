@@ -109,12 +109,24 @@ public class MongoDao {
         {
             int count = basicDBObject.getInt("count");
             count++;
-            thanksCollection.findOneAndReplace(new BasicDBObject("refToken", refToken),MongoMapper.getThanksCollectionObject(refToken,count));
+            thanksCollection.findOneAndReplace(new BasicDBObject("refToken", refToken), MongoMapper.getThanksCollectionObject(refToken, count));
         }
         else
         {
             BasicDBObject basicDBObjectInsert = MongoMapper.getThanksCollectionObject(refToken,1);
             thanksCollection.insertOne(basicDBObjectInsert);
         }
+    }
+
+    public int getThanksCount(String refToken)
+    {
+        FindIterable<BasicDBObject> basicDBObjects = thanksCollection.find(new BasicDBObject("refToken", refToken));
+        BasicDBObject basicDBObject = basicDBObjects.first();
+
+        if(null!= basicDBObject) {
+            return basicDBObject.getInt("count");
+        }
+
+        return 0;
     }
 }
