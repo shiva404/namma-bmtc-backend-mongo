@@ -51,15 +51,24 @@ public class LocationResource {
     @GET
     public void getLocationsNearBy(@Suspended final AsyncResponse asyncResponse,
                                    @QueryParam("lat") Double lat,
+                                   @QueryParam("refToken") String refToken,
                                    @QueryParam("long") Double longitude,
                                    @QueryParam("range") @DefaultValue("3.0") Double rangeInKm){
-        new Thread(()->{
+        new Thread(()-> {
             List<Location> locations = mongoDao.getLocations(lat, longitude, rangeInKm);
 //            locations.forEach(System.out::println);
             LocationPage locationPage = new LocationPage();
             locationPage.getLocations().addAll(locations);
             locationPage.setOffset(0);
             locationPage.setSize(locations.size());
+
+            if(null!=refToken) {
+                int thanksCount = mongoDao.getThanksCount(refToken);
+                if (thanksCount >= 0) {
+                    locationPage.setThanksCount(thanksCount);
+                }
+            }
+
             asyncResponse.resume(Response.ok().entity(locationPage).build());
         }).start();
     }
