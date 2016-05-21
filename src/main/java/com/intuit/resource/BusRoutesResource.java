@@ -24,6 +24,6 @@ public class BusRoutesResource {
     @Path("/{routeNumber}")
     public Response getBusRoute(@PathParam("routeNumber") String routeNumber){
         BusRoute busRoute = mongoDao.getBusRoute(routeNumber);
-        return Response.ok().entity(new BusRoute(routeNumber, "Something", "TOSomething", "Blah blah")).build();
+        return Response.ok().entity(busRoute).build();
     }
 }
