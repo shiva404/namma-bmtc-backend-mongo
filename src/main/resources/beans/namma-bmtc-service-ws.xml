@@ -24,6 +24,7 @@
         <constructor-arg index="1" value="${mongodb.database}"/>
         <constructor-arg index="2" value="${mongodb.loc.database.collection.name}" />
         <constructor-arg index="3" value="${mongodb.bus_routes.database.collection.name}" />
+        <constructor-arg index="4" value="${mongodb.thanks.database.collect.name}" />
     </bean>
 
     <bean class="com.mongodb.MongoClient" id="mongoClient">

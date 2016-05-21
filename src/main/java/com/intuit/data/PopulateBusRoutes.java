@@ -26,10 +26,10 @@ public class PopulateBusRoutes {
 
     public static void main(String[] args) {
         PopulateBusRoutes populateBusRoutes = new PopulateBusRoutes();
-        List<BusRoute> busRoutes = populateBusRoutes.readCsvFile("/Users/sn1/intuit-git/namma-bmtc-backend-mongo/src/main/resources/bus_routes.csv");
+        List<BusRoute> busRoutes = populateBusRoutes.readCsvFile("C:\\Personal\\Namma BMTC\\namma-bmtc-backend-mongo\\src\\main\\resources\\bus_routes.csv");
 
         MongoClient mongoClient = new MongoClient("127.0.0.1");
-        MongoDao mongoDao = new MongoDao(mongoClient, "namma-bmtc", "loc","bus_routes");
+        MongoDao mongoDao = new MongoDao(mongoClient, "namma-bmtc", "loc","bus_routes","thanks");
 
         for(BusRoute busRoute : busRoutes){
             mongoDao.persistBusRouts(busRoute);

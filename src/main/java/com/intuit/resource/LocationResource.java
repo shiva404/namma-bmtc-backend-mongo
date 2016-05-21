@@ -73,4 +73,13 @@ public class LocationResource {
             asyncResponse.resume(Response.ok().build());
         }).start();
     }
+
+    @POST
+    @Path("/thanks/{refToken}")
+    public Response sayThanks(@PathParam("refToken") String refToken)
+    {
+        mongoDao.sayThanks(refToken);
+        return  Response.ok().build();
+    }
+
 }
