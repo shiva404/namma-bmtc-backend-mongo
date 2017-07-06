@@ -1,0 +1,8 @@
+use namma-bmtc;
+
+db.getCollectionNames()
+
+db.loc.findOne();
+
+db.loc.createIndex( { loc : "2dsphere"} )
+
