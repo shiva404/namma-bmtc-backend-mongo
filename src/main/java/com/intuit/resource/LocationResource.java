@@ -4,6 +4,7 @@ import com.intuit.mongo.MongoDao;
 import com.intuit.types.Location;
 import com.intuit.types.LocationPage;
 import com.intuit.types.ReferenceToken;
+import com.intuit.types.ThanksCount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -91,4 +92,10 @@ public class LocationResource {
         return  Response.ok().build();
     }
 
+    @GET
+    @Path("{refToken}/thanks")
+    public Response getThanksCount(@PathParam("refToken") String refToken) {
+        int thanksCount = mongoDao.getThanksCount(refToken);
+        return Response.ok().entity(new ThanksCount(refToken, thanksCount)).build();
+    }
 }
