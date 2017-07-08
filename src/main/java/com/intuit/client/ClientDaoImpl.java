@@ -4,7 +4,6 @@ import com.intuit.provider.JacksonJsonProvider;
 import com.intuit.types.Data;
 import com.intuit.types.Location;
 import org.glassfish.jersey.client.ClientConfig;
-import org.glassfish.jersey.filter.LoggingFilter;
 import org.slf4j.Logger;
 
 import javax.ws.rs.client.Client;
@@ -21,56 +20,51 @@ import java.util.concurrent.*;
 public class ClientDaoImpl implements ClientDao {
 
     public static final String[] USERS = {
-            "351a50d7-34db-40ec-8cba-6d851b0d23cb",
-            "2f4f02ce-deb1-49da-8819-e0a394cc477f",
-            "d1d162de-70c4-4e09-8509-0e1fc7d3799f",
-            "c453133b-6832-4836-96f5-d5148fada920",
-            "63d87e17-f0d4-4fb6-95f3-129f107d553d",
-            "667b27d2-c1cc-4344-ab77-a56b0b236c23",
-            "1abb91ee-24ca-4544-9cc8-d00d156db696",
-            "defaecd0-8bc9-48e5-a3c3-dc263dbf1e38",
-            "d98d8895-f498-4881-84b3-75665f33165e",
-            "fe69d7dc-4ca4-4158-87c0-7e698bf7320d",
-            "4f7b5476-b8d5-401b-8412-f8bae56b4b58",
-            "b29b8658-e978-4727-ad9a-ae67f1e013e5",
-            "d6a958d0-a3d1-418c-9ea0-e884c52220cb",
-            "40aa3392-2ce5-4036-ba13-02d5a7d09d17",
-            "4ceebb4f-f366-4939-af84-7bf7c90912ad"
+            "dd4c4db7-1149-4599-b143-3ad21fc039b2",
+
+            "7b32e17c-004a-4744-a236-1b5f41761f07",
+
+            "5943384d-7e50-47b2-a6eb-1e4dd09404a9",
+
+            "732fd697-bce9-4013-aef7-958eed2dabce",
+
+            "80d8d4d7-84b0-4018-ab76-0b380d77e051",
+
+            "f620e4bf-14ba-46ff-873c-063c55e7657e",
+
+            "8f30e08e-be0c-411f-bb00-46953df6a5c7"
     };
 
-    public static final String[] routes_no = { "501A",  "410",  "335E",  "43A",  "43C",  "36A",  "34B",  "610",  "56",  "34",  "501",
-            "95",  "60A",  "216A",  "23D",  "34F",  "99",  "101",  "201B",  "201R", "501A",  "410",  "335E",  "43A",  "43C",  "36A",  "34B",
-            "610",  "56",  "34",  "501","501A",  "410",  "335E",  "43A",  "43C",  "36A",  "34B",  "610",  "56",  "34",  "501"};
+    
+    public static final String[] routes_no = { "144K",  "410",  "111",  "43B",  "43E",  "87",  "61G",  "414",  "356M",  "234B",  "137",
+            "95",  "60A",  "131F",  "100",  "31E",  "79"};
     public static final double[][] CO_ORDINATES = {
-            {13.003460, 77.635807},
-            {13.002331, 77.633919},
-            {13.001954, 77.631602},
-            {13.001411, 77.628984},
-            {13.000867, 77.626666},
-            {12.998902, 77.624435},
-            {12.997982, 77.622203},
-            {12.997354, 77.620197},
-            {12.997019, 77.619553},
-            {12.996695, 77.618941},
-            {12.996455, 77.618416},
-            {12.996183, 77.617740},
-            {12.995870, 77.617021},
-            {12.995713, 77.616667},
-            {12.995263, 77.616324},
-            {12.994845, 77.616077},
-            {12.994490, 77.615852},
-            {12.994009, 77.615583},
-            {12.993737, 77.615433},
-            {12.993235, 77.615219},
-            {12.992765, 77.614972},
-            {12.992252, 77.614746},
-            {12.991803, 77.614543},
-            {12.991343, 77.614307},
-            {12.990925, 77.614071},
-            {12.990485, 77.613813},
-            {12.990036, 77.613609},
-            {12.989534, 77.613395},
-            {12.989105, 77.613212}};
+            {12.956438, 77.701072},
+            {12.955305, 77.700734},
+            {12.954318, 77.700509},
+            {12.952892, 77.700172},
+            {12.951028, 77.699759},
+            {12.949296, 77.699489},
+            {12.949164, 77.699459},
+            {12.948574, 77.699341},
+            {12.947527, 77.699044},
+            {12.946769, 77.698748},
+            {12.945723, 77.698341},
+            {12.944857, 77.697970},
+            {12.942451, 77.697262},
+            {12.941656, 77.696618},
+            {12.940485, 77.695974},
+            {12.940212, 77.695738},
+            {12.938681, 77.694585},
+            {12.937303, 77.693067},
+            {12.936435, 77.692334},
+            {12.934496, 77.690239},
+            {12.930003, 77.684737},
+            {12.929170, 77.683241},
+            {12.928644, 77.681933},
+            {12.927753, 77.680111},
+            {12.927062, 77.678776}
+    };
 
     public static String[] crowd = {"STAND", "SEAT", "CROWDED"};
 
@@ -80,7 +74,7 @@ public class ClientDaoImpl implements ClientDao {
     static ThreadLocalRandom threadLocalRandom = ThreadLocalRandom.current();
 
     public ClientDaoImpl() {
-        Configuration configuration = new ClientConfig(JacksonJsonProvider.class, LoggingFilter.class);
+        Configuration configuration = new ClientConfig(JacksonJsonProvider.class);
         client = ClientBuilder.newClient(configuration);
 
     }
@@ -107,7 +101,7 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     public void updatePosition(Location location) throws Exception {
-        Future<Response> post = client.target("http://54.179.147.112:8080/test/v1/location")
+        Future<Response> post = client.target("http://13.126.238.76:8080/test/v1/location")
                 .request().async().post(Entity.json(location));
         System.out.println(post.get().getStatus());
     }
@@ -115,8 +109,8 @@ public class ClientDaoImpl implements ClientDao {
     public static void main(String[] args) {
 
         ClientDaoImpl clientDao = new ClientDaoImpl();
-        int  corePoolSize  =    20;
-        int  maxPoolSize   =   30;
+        int  corePoolSize  =    10;
+        int  maxPoolSize   =   15;
         long keepAliveTime = 50000;
 
         ExecutorService threadPoolExecutor =
@@ -127,23 +121,37 @@ public class ClientDaoImpl implements ClientDao {
                         TimeUnit.MILLISECONDS,
                         new LinkedBlockingQueue<Runnable>(5000)
                 );
-
         int i = 0;
-        while (true) {
-            int route_val = threadLocalRandom.nextInt(0, USERS.length);
+
+        ScheduledExecutorService scheduledExecutorService = new ScheduledThreadPoolExecutor(10);
+
+        for(int count =0 ; count< USERS.length; count++) {
             int curIteration = i % CO_ORDINATES.length;
             System.out.println("Current value:" + curIteration);
             double latitude = CO_ORDINATES[curIteration][0];
             double longitude = CO_ORDINATES[curIteration][1];
-            System.out.println("Latitude:" + latitude + " longitude:" + longitude);
-            BusRoute busRoute = new BusRoute(clientDao, 0, new Location(USERS[route_val], latitude, longitude, routes_no[route_val], crowd[threadLocalRandom.nextInt(0,3)]));
-            threadPoolExecutor.execute(busRoute);
-            i++;
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
+            scheduledExecutorService.schedule(new BusRoute(clientDao, 4000, new Location(USERS[count], latitude, longitude, routes_no[count], crowd[threadLocalRandom.nextInt(0,3)])),
+                    0, TimeUnit.SECONDS);
+
         }
+
+
+//        while (true) {
+//            int route_val = threadLocalRandom.nextInt(0, USERS.length);
+//            int curIteration = i % CO_ORDINATES.length;
+//            System.out.println("Current value:" + curIteration);
+//            double latitude = CO_ORDINATES[curIteration][0];
+//            double longitude = CO_ORDINATES[curIteration][1];
+//            System.out.println("Latitude:" + latitude + " longitude:" + longitude);
+//            BusRoute busRoute = new BusRoute(clientDao, 0, new Location(USERS[route_val], latitude, longitude, routes_no[route_val], crowd[threadLocalRandom.nextInt(0,3)]));
+//            threadPoolExecutor.execute(busRoute);
+//            i++;
+//            try {
+//                Thread.sleep( 1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 }
